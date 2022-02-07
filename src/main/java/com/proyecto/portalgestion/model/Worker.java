@@ -9,7 +9,6 @@ public class Worker {
     private String lastName;
     private String dni;
     private Date bornDate = new Date();
-    private String bornDateString;
     private String nationality;
     private State state;
     private Address address = null;
@@ -40,9 +39,6 @@ public class Worker {
 
     public Date getBornDate() {return bornDate;}
     public void setBornDate(Date bornDate) {this.bornDate = bornDate;}
-
-    public String getBornDateString() {return bornDateString;}
-    public void setBornDateString(String bornDateString) {this.bornDateString = bornDateString;}
 
     public String getNationality() {return nationality;}
     public void setNationality(String nationality) {this.nationality = nationality;}

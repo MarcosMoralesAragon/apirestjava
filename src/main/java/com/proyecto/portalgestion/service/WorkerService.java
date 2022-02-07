@@ -1,13 +1,14 @@
 package com.proyecto.portalgestion.service;
 
 import com.proyecto.portalgestion.model.Worker;
+import com.proyecto.portalgestion.utils.IdGenerator;
 import com.proyecto.portalgestion.utils.ParseDate;
 
 import java.util.ArrayList;
 
 public class WorkerService {
     public ArrayList<Worker> workerList = new ArrayList<>();
-    private ParseDate parseDate = new ParseDate();
+    public IdGenerator idGenerator = new IdGenerator();
 
     public Integer foundIndexInList(String id){
         int index;
@@ -21,7 +22,7 @@ public class WorkerService {
 
     public ArrayList<Worker> listOfWorkers(){return workerList;}
 
-    public Worker editWorker(Worker worker){
+    public boolean editWorker(Worker worker){
         int index = foundIndexInList(worker.getId());
         if (index != -1){
             workerList.get(index).setId(worker.getId());
@@ -31,9 +32,9 @@ public class WorkerService {
             workerList.get(index).setDni(worker.getDni());
             workerList.get(index).setNationality(worker.getNationality());
             workerList.get(index).setState(worker.getState());
-            return worker;
+            return true;
         } else {
-            return null;
+            return false;
         }
     }
 
@@ -47,7 +48,7 @@ public class WorkerService {
     }
 
     public Worker addWorker(Worker newWorker){
-        newWorker.setBornDate(parseDate.stringToDate(newWorker.getBornDateString()));
+        newWorker.setId(idGenerator.stringGenerator(workerList, null));
         workerList.add(newWorker);
         return newWorker;
     }

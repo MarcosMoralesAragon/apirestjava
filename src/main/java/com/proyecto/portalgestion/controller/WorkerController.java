@@ -32,7 +32,7 @@ public class WorkerController {
 
     //Edita un trabajador
     @PutMapping("/workers/{id}")
-    Worker changeWorker(@RequestBody Worker worker, @PathVariable String id){return workerService.editWorker(worker);}
+    boolean changeWorker(@RequestBody Worker worker, @PathVariable String id){return workerService.editWorker(worker);}
 
     @DeleteMapping("/workers/{id}")
     boolean deleteWorker(@PathVariable String id){
