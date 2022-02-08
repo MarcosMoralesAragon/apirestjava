@@ -9,8 +9,6 @@ import java.util.ArrayList;
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
 public class WorkerController {
-    WorkerController(){}
-
     private final WorkerService workerService = new WorkerService();
 
 
@@ -20,10 +18,6 @@ public class WorkerController {
         return workerService.listOfWorkers();
     }
 
-    // Saca un trabajador en concreto
-    // @GetMapping("/workers/{id}")
-    // Worker getWorkerById(@PathVariable String id){return workerService.getWorkerById(id);}
-
     // Añade un trabajador nuevo
     @PostMapping("/workers")
     Worker addWorker(@RequestBody  Worker worker ){
@@ -31,8 +25,8 @@ public class WorkerController {
     }
 
     //Edita un trabajador
-    @PutMapping("/workers/{id}")
-    boolean changeWorker(@RequestBody Worker worker, @PathVariable String id){return workerService.editWorker(worker);}
+    @PutMapping("/workers")
+    boolean changeWorker(@RequestBody Worker worker){return workerService.editWorker(worker);}
 
     @DeleteMapping("/workers/{id}")
     boolean deleteWorker(@PathVariable String id){

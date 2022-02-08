@@ -15,7 +15,8 @@ public class IdGenerator {
                 id = idBuilderString("W-");
                 itExist = existsInWorkers(workerList, id);
             } else {
-                // itExist = existsInContracts();
+                id = idBuilderString("C-");
+                itExist = existsInContracts(contractList, id);
             }
         }
         return id;
@@ -40,6 +41,15 @@ public class IdGenerator {
     private boolean existsInWorkers(ArrayList<Worker> workerList, String newId){
         for (Worker worker : workerList) {
             if (worker.getId().equals(newId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean existsInContracts(ArrayList<Contract> contractList, String newId){
+        for (Contract contract : contractList) {
+            if (contract.getId().equals(newId)) {
                 return true;
             }
         }
