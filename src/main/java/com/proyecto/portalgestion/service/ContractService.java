@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class ContractService {
 
-    public ArrayList<Contract> contracts = new ArrayList<>();
+    public static ArrayList<Contract> contracts = new ArrayList<>();
     private final IdGenerator idGenerator = new IdGenerator();
 
     public Integer foundIndex(String id){
@@ -24,7 +24,7 @@ public class ContractService {
 
         ArrayList<Contract> contractsFromWorker = new ArrayList<>();
         for (Contract contract : contracts) {
-            if (contract.getIdWorkerAsignied().equals(id)){
+            if (contract.getIdWorkerAsigned().equals(id)){
                 contractsFromWorker.add(contract);
             }
         }
@@ -40,12 +40,9 @@ public class ContractService {
     }
 
     public Contract addContract(Contract newContract){
-        if (newContract != null){
-            newContract.setId(idGenerator.stringGenerator(null,contracts));
-            contracts.add(newContract);
-            return newContract;
-        }
-        return null;
+        newContract.setId(idGenerator.stringGenerator(null,contracts, null));
+        contracts.add(newContract);
+        return newContract;
     }
 
     public boolean editContract(Contract changeContract){

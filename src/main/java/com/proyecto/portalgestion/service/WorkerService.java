@@ -7,8 +7,9 @@ import com.proyecto.portalgestion.utils.ParseDate;
 import java.util.ArrayList;
 
 public class WorkerService {
-    public ArrayList<Worker> workerList = new ArrayList<>();
+    public static ArrayList<Worker> workerList = new ArrayList<>();
     public IdGenerator idGenerator = new IdGenerator();
+    public AddressService addressService = new AddressService();
 
     public Integer foundIndexInList(String id){
         int index;
@@ -20,7 +21,7 @@ public class WorkerService {
         return -1;
     }
 
-    public ArrayList<Worker> listOfWorkers(){return workerList;}
+    public ArrayList<Worker> listOfWorkers(){return addressService.asingAddress(workerList);}
 
     public boolean editWorker(Worker worker){
         int index = foundIndexInList(worker.getId());
@@ -48,7 +49,7 @@ public class WorkerService {
     }
 
     public Worker addWorker(Worker newWorker){
-        newWorker.setId(idGenerator.stringGenerator(workerList, null));
+        newWorker.setId(idGenerator.stringGenerator(workerList, null, null));
         workerList.add(newWorker);
         return newWorker;
     }

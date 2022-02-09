@@ -9,6 +9,7 @@ public class Address {
     private String door;
     private Integer postCode;
     private String locality;
+    private String province;
     private String idWorker;
 
     public Address(){}
@@ -33,6 +34,9 @@ public class Address {
 
     public String getLocality() {return locality;}
     public void setLocality(String locality) {this.locality = locality;}
+
+    public String getProvince() {return province;}
+    public void setProvince(String province) {this.province = province;}
 
     public String getIdWorker() {return idWorker;}
     public void setIdWorker(String idWorker) {this.idWorker = idWorker;}

@@ -1,5 +1,6 @@
 package com.proyecto.portalgestion.utils;
 
+import com.proyecto.portalgestion.model.Address;
 import com.proyecto.portalgestion.model.Contract;
 import com.proyecto.portalgestion.model.Worker;
 
@@ -7,16 +8,21 @@ import java.util.ArrayList;
 
 public class IdGenerator {
 
-    public String stringGenerator(ArrayList<Worker> workerList, ArrayList<Contract> contractList){
+    public String stringGenerator(ArrayList<Worker> workerList,
+                                  ArrayList<Contract> contractList,
+                                  ArrayList<Address> addressList){
         boolean itExist = true;
         String id = "";
         while (itExist){
             if (workerList != null){
                 id = idBuilderString("W-");
                 itExist = existsInWorkers(workerList, id);
-            } else {
+            } else if (contractList != null){
                 id = idBuilderString("C-");
                 itExist = existsInContracts(contractList, id);
+            } else if(addressList != null){
+                id = idBuilderString("A-");
+                itExist = existsInAddress(addressList, id);
             }
         }
         return id;
@@ -50,6 +56,15 @@ public class IdGenerator {
     private boolean existsInContracts(ArrayList<Contract> contractList, String newId){
         for (Contract contract : contractList) {
             if (contract.getId().equals(newId)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean existsInAddress(ArrayList<Address> addressList, String newId){
+        for (Address address : addressList) {
+            if (address.getId().equals(newId)) {
                 return true;
             }
         }

@@ -9,7 +9,7 @@ public class Contract {
     private Date dateEstimatedEndContract = null;
     private Integer salary;
     private Position position;
-    private String idWorkerAsignied;
+    private String idWorkerAsigned;
 
     public String getId() {return id;}
     public void setId(String id) {this.id = id;}
@@ -29,8 +29,8 @@ public class Contract {
     public Position getPosition() {return position;}
     public void setPosition(Position position) {this.position = position;}
 
-    public String getIdWorkerAsignied() {return idWorkerAsignied;}
-    public void setIdWorkerAsignied(String idWorkerAsignied) {this.idWorkerAsignied = idWorkerAsignied;}
+    public String getIdWorkerAsigned() {return idWorkerAsigned;}
+    public void setIdWorkerAsigned(String idWorkerAsignied) {this.idWorkerAsigned = idWorkerAsignied;}
 
     @Override
     public String toString() {
@@ -41,7 +41,7 @@ public class Contract {
                 ", dateEstimatedEndContract=" + dateEstimatedEndContract +
                 ", salary=" + salary +
                 ", position=" + position +
-                ", idWorkerAsignied='" + idWorkerAsignied + '\'' +
+                ", idWorkerAsigned='" + idWorkerAsigned + '\'' +
                 '}';
     }
 }
