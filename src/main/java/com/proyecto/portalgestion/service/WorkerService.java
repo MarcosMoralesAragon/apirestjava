@@ -2,7 +2,6 @@ package com.proyecto.portalgestion.service;
 
 import com.proyecto.portalgestion.model.Worker;
 import com.proyecto.portalgestion.utils.IdGenerator;
-import com.proyecto.portalgestion.utils.ParseDate;
 
 import java.util.ArrayList;
 
@@ -39,17 +38,10 @@ public class WorkerService {
         }
     }
 
-    public Worker getWorkerById(String id){
-        int index = foundIndexInList(id);
-        if (index != -1){
-            return workerList.get(index);
-        } else {
-            return null;
-        }
-    }
-
     public Worker addWorker(Worker newWorker){
-        newWorker.setId(idGenerator.stringGenerator(workerList, null, null));
+        if (!hasIdCorrect(newWorker.getId())){
+            newWorker.setId(idGenerator.stringGenerator(workerList, null, null));
+        }
         workerList.add(newWorker);
         return newWorker;
     }
@@ -62,5 +54,14 @@ public class WorkerService {
         } else {
             return false;
         }
+    }
+
+    public void addListToArray(ArrayList<Worker> listToAdd){
+        workerList.addAll(listToAdd);
+    }
+
+    private boolean hasIdCorrect(String id){
+        String[] parts = id.split("-");
+        return parts[0].equals("W");
     }
 }

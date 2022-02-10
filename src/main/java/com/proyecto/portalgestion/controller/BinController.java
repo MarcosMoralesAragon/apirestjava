@@ -15,7 +15,7 @@ public class BinController {
     ArrayList<Worker> getWorkers(){return binService.getBin();}
 
     @PostMapping("/bin-add")
-    Worker addWorkerToBin(@RequestBody Worker worker){return addWorkerToBin(worker);}
+    Worker addWorkerToBin(@RequestBody Worker worker){return binService.addToBin(worker);}
 
     @DeleteMapping("/bin-delete/{id}")
     Worker deleteWorkerFromBin(@PathVariable String id){return binService.deleteFromBin(id);}

@@ -8,8 +8,9 @@ public class BinService {
     public static ArrayList<Worker> bin = new ArrayList<>();
     public ArrayList<Worker> getBin(){return bin;}
 
-    public void addToBin(Worker worker){
+    public Worker addToBin(Worker worker){
         bin.add(worker);
+        return worker;
     }
 
     public Worker deleteFromBin(String workerId){
@@ -33,17 +34,14 @@ public class BinService {
     }
 
     public boolean deleteAllFromBin(){
-        for(Worker worker : bin){
-            deleteFromBin(worker.getId());
-        }
+        bin = new ArrayList<>();
         return true;
     }
 
     public boolean restoreAllFromBin(){
-        for(Worker worker : bin){
-            restoreFromBin(worker.getId());
-        }
+        WorkerService workerService = new WorkerService();
+        workerService.addListToArray(bin);
+        deleteAllFromBin();
         return true;
     }
-
 }

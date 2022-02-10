@@ -1,6 +1,5 @@
 package com.proyecto.portalgestion.service;
 
-import ch.qos.logback.core.joran.conditional.IfAction;
 import com.proyecto.portalgestion.model.Contract;
 import com.proyecto.portalgestion.utils.IdGenerator;
 
