@@ -30,7 +30,9 @@ public class AddressService {
     }
 
     public Address createAddress(Address newAddress){
-        newAddress.setId(idGenerator.stringGenerator(null, null, addressList));
+        if (!hasIdCorrect(newAddress.getId())){
+            newAddress.setId(idGenerator.stringGenerator(null, null, addressList));
+        }
         addressList.add(newAddress);
         return newAddress;
     }
@@ -59,5 +61,10 @@ public class AddressService {
             }
         }
         return workerList;
+    }
+
+    private boolean hasIdCorrect(String id){
+        String[] parts = id.split("-");
+        return parts[0].equals("A");
     }
 }

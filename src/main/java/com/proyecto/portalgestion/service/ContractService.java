@@ -39,7 +39,9 @@ public class ContractService {
     }
 
     public Contract addContract(Contract newContract){
-        newContract.setId(idGenerator.stringGenerator(null,contracts, null));
+        if (!hasIdCorrect(newContract.getId())){
+            newContract.setId(idGenerator.stringGenerator(null,contracts, null));
+        }
         contracts.add(newContract);
         return newContract;
     }
@@ -72,5 +74,10 @@ public class ContractService {
             }
         }
         return false;
+    }
+
+    private boolean hasIdCorrect(String id){
+        String[] parts = id.split("-");
+        return parts[0].equals("C");
     }
 }
