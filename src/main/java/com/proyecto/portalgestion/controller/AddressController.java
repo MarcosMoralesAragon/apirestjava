@@ -12,12 +12,15 @@ public class AddressController {
     private final AddressService addressService = new AddressService();
     private final WorkerService workerService = new WorkerService();
 
+    // Saca la dirección referente al empleado
     @GetMapping("/address/{id}")
     Address getAddress(@PathVariable String id){return addressService.getAddress(id);}
 
+    // Añade una dirección a la lista
     @PostMapping("/address")
     Address addAddress(@RequestBody Address address){return addressService.createAddress(address);}
 
+    // Edita una dirección concreta de la lista
     @PutMapping("/address")
     boolean editAddress(@RequestBody Address address){return addressService.editAddress(address);}
 }

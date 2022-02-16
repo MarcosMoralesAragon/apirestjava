@@ -11,6 +11,10 @@ public class AddressService {
     public static ArrayList<Address> addressList = new ArrayList<>();
     private final IdGenerator idGenerator = new IdGenerator();
 
+    /**
+     * Busa el index de una dirección en la lista y lo devuelve
+     * @return index o en caso de no encontrarlo -1
+     */
     public Integer foundIndex(String id){
         for (int i = 0; i < addressList.size(); i++) {
             if (addressList.get(i).getId().equals(id)){
@@ -20,6 +24,10 @@ public class AddressService {
         return -1;
     }
 
+    /**
+     * Devuelve una dirección en concreto referida a un id
+     * @return la dirección si la encuentra sino devuelve null
+     */
     public Address getAddress(String id){
         for (Address address : addressList) {
             if (address.getIdWorker().equals(id)) {
@@ -29,14 +37,24 @@ public class AddressService {
         return null;
     }
 
+    /**
+     * Añade una dirección a la lista, comprobando antes que el id este correcto
+     * @return la dirección vacía o rellena
+     */
     public Address createAddress(Address newAddress){
         if (!hasIdCorrect(newAddress.getId())){
+            // Si el id es incorrecto ( que es lo que ocurre cuando el empleado es creado en el front)
+            // se le asigna un nuevo id
             newAddress.setId(idGenerator.stringGenerator(null, null, addressList));
         }
         addressList.add(newAddress);
         return newAddress;
     }
 
+    /**
+     * Busca a el empleado editado por su id y cambia todos los campos por los del nuevo
+     * @return true si lo edita false si no lo edita
+     */
     public boolean editAddress(Address editAddress){
         int index = foundIndex(editAddress.getId());
         if (index != -1){
@@ -52,17 +70,26 @@ public class AddressService {
         return false;
     }
 
+    /**
+     * Recibe una lista de trabajadores y asigna las direcciones a cada uno de ellos
+     * @return la nueva lista con las direcciones asignadas
+     */
     public ArrayList<Worker> asingAddress(ArrayList<Worker> workerList){
         for (Worker worker: workerList) {
-            for (int i = 0; i < addressList.size(); i++) {
-                if (worker.getId().equals(addressList.get(i).getIdWorker())){
-                    worker.setAddress(addressList.get(i));
+            // Por cada trabajador recorre la lista de direcciones buscando si alguna direccion le pertenece
+            for (Address address : addressList) {
+                if (worker.getId().equals(address.getIdWorker())) {
+                    worker.setAddress(address);
                 }
             }
         }
         return workerList;
     }
 
+    /**
+     * Comprueba que el id tiene el prefijo adecuado
+     * @return true si el prefijo es el correcto false si no lo es
+     */
     private boolean hasIdCorrect(String id){
         String[] parts = id.split("-");
         return parts[0].equals("A");
