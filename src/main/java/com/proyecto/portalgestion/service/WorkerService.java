@@ -59,13 +59,19 @@ public class WorkerService {
      * @return Empleado introducido
      */
     public Worker addWorker(Worker newWorker){
-        if (!hasIdCorrect(newWorker.getId())){
-            // Si el id es incorrecto ( que es lo que ocurre cuando el empleado es creado en el front)
-            // se le asigna un nuevo id
-            newWorker.setId(idGenerator.stringGenerator(workerList, null, null));
+        try {
+            if (!hasIdCorrect(newWorker.getId())) {
+                // Si el id es incorrecto ( que es lo que ocurre cuando el empleado es creado en el front)
+                // se le asigna un nuevo id
+                newWorker.setId(idGenerator.stringGenerator(workerList, null, null));
+            }
+            workerList.add(newWorker);
+            return newWorker;
+        }catch (NullPointerException e){
+            // El emplado que se quería crear esta vacío, esto ocuree cuando se carga el archivo
+            // excel con su respectiva páguina sin datos
+            return null;
         }
-        workerList.add(newWorker);
-        return newWorker;
     }
 
     /**

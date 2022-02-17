@@ -53,13 +53,20 @@ public class ContractService {
      * Añade un contrato a lista comprobando antes si su codigo es correcto
      */
     public Contract addContract(Contract newContract){
-        if (!hasIdCorrect(newContract.getId())){
-            // Si el id es incorrecto ( que es lo que ocurre cuando el empleado es creado en el front)
-            // se le asigna un nuevo id
-            newContract.setId(idGenerator.stringGenerator(null,contracts, null));
+        try{
+            if (!hasIdCorrect(newContract.getId())){
+                // Si el id es incorrecto ( que es lo que ocurre cuando el empleado es creado en el front)
+                // se le asigna un nuevo id
+                newContract.setId(idGenerator.stringGenerator(null,contracts, null));
+            }
+            contracts.add(newContract);
+            return newContract;
+        }catch (NullPointerException e){
+            // El contrato que se quería crear esta vacío, esto ocuree cuando se carga el archivo
+            // excel con alguna de las páguinas sin datos
+            return null;
         }
-        contracts.add(newContract);
-        return newContract;
+
     }
 
     /**

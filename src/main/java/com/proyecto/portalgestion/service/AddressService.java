@@ -42,13 +42,17 @@ public class AddressService {
      * @return la dirección vacía o rellena
      */
     public Address createAddress(Address newAddress){
-        if (!hasIdCorrect(newAddress.getId())){
-            // Si el id es incorrecto ( que es lo que ocurre cuando el empleado es creado en el front)
-            // se le asigna un nuevo id
-            newAddress.setId(idGenerator.stringGenerator(null, null, addressList));
+        if(newAddress != null) {
+            if (!hasIdCorrect(newAddress.getId())) {
+                // Si el id es incorrecto ( que es lo que ocurre cuando el empleado es creado en el front)
+                // se le asigna un nuevo id
+                newAddress.setId(idGenerator.stringGenerator(null, null, addressList));
+            }
+            addressList.add(newAddress);
+            return newAddress;
+        } else {
+            return null;
         }
-        addressList.add(newAddress);
-        return newAddress;
     }
 
     /**
