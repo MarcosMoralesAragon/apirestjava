@@ -68,8 +68,7 @@ public class WorkerService {
             workerList.add(newWorker);
             return newWorker;
         }catch (NullPointerException e){
-            // El emplado que se quería crear esta vacío, esto ocuree cuando se carga el archivo
-            // excel con su respectiva páguina sin datos
+            // El emplado que se quería crear esta vacío
             return null;
         }
     }

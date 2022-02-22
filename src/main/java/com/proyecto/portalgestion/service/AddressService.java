@@ -51,6 +51,7 @@ public class AddressService {
             addressList.add(newAddress);
             return newAddress;
         } else {
+            // La dirección que se quería crear esta vacia
             return null;
         }
     }

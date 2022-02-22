@@ -62,8 +62,7 @@ public class ContractService {
             contracts.add(newContract);
             return newContract;
         }catch (NullPointerException e){
-            // El contrato que se quería crear esta vacío, esto ocuree cuando se carga el archivo
-            // excel con alguna de las páguinas sin datos
+            // El contrato que se quería crear esta vacío
             return null;
         }
 
