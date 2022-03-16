@@ -10,6 +10,11 @@ public class WorkerService {
     public IdGenerator idGenerator = new IdGenerator();
     public AddressService addressService = new AddressService();
 
+
+    /**
+     * Busa el index de un empleado en la lista y lo devuelve
+     * @return index o en caso de no encontrarlo -1
+     */
     public Integer foundIndexInList(String id){
         int index;
         for (index = 0; index < workerList.size(); index++) {
@@ -20,8 +25,19 @@ public class WorkerService {
         return -1;
     }
 
-    public ArrayList<Worker> listOfWorkers(){return addressService.asingAddress(workerList);}
+    /**
+     * Devuelve la lista de empleados
+     */
+    public ArrayList<Worker> listOfWorkers(){
+        // Cada vez que pide la lista va a address service y rellena las direcciones de los empleados
+        return addressService.asingAddress(workerList);
+    }
 
+
+    /**
+     * Busca a un empleado y si lo encuentra lo edita
+     * @return true si lo edita false si se cancela
+     */
     public boolean editWorker(Worker worker){
         int index = foundIndexInList(worker.getId());
         if (index != -1){
@@ -38,14 +54,29 @@ public class WorkerService {
         }
     }
 
+    /**
+     * Añade a un empleado a la lista y lo devuelve. Antes de añadirlo comprueba que su id sea el correcto
+     * @return Empleado introducido
+     */
     public Worker addWorker(Worker newWorker){
-        if (!hasIdCorrect(newWorker.getId())){
-            newWorker.setId(idGenerator.stringGenerator(workerList, null, null));
+        try {
+            if (!hasIdCorrect(newWorker.getId())) {
+                // Si el id es incorrecto ( que es lo que ocurre cuando el empleado es creado en el front)
+                // se le asigna un nuevo id
+                newWorker.setId(idGenerator.stringGenerator(workerList, null, null));
+            }
+            workerList.add(newWorker);
+            return newWorker;
+        }catch (NullPointerException e){
+            // El emplado que se quería crear esta vacío
+            return null;
         }
-        workerList.add(newWorker);
-        return newWorker;
     }
 
+    /**
+     * Borra a un empleado de la lista
+     * @return true si borra false si no borra
+     */
     public boolean deleteWorker(String id){
         int index = foundIndexInList(id);
         if (index != -1 ){
@@ -56,10 +87,16 @@ public class WorkerService {
         }
     }
 
+    /**
+     * Recoje una lista de empleados y los añade todos a la lista principal
+     */
     public void addListToArray(ArrayList<Worker> listToAdd){
         workerList.addAll(listToAdd);
     }
 
+    /**
+     * Comprueba que el inicio del string sea acorde con el formato establecido (W-......)
+     */
     private boolean hasIdCorrect(String id){
         String[] parts = id.split("-");
         return parts[0].equals("W");
